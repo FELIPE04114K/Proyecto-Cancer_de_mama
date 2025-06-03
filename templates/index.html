@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Cáncer de Mama | </title>
+    <style>
+      * {
+        font-family: "Poppins", sans-serif;
+      }
+
+      .appBar {
+        text-align: center;
+        background-color: #de4c8a;
+        padding: 10px 20px;
+        color: white;
+        font-size: 30px;
+        border: 5px solid transparent;
+        border-radius: 10px;
+      }
+
+      .saludo {
+        text-align: center;
+        margin-top: 50px;
+      }
+      
+      .intro {
+        margin-top: 50px;
+        font-size: 20px;
+      }
+
+      .formulario {
+        margin-top: 20px;
+        text-align: center;
+      }
+
+      .input-group {
+        margin: 10px 0;
+      }
+
+      .input-group input {
+        padding: 10px;
+        font-size: 16px;
+        width: 300px;
+        margin: 5px;
+        border: 2px solid #ccc;
+        border-radius: 5px;
+      }
+
+      .input-group button {
+        padding: 10px 20px;
+        font-size: 18px;
+        background-color: #de4c8a;
+        color: white;
+        border: none;
+        border-radius: 5px;
+      }
+
+      .grafico {
+        display: flex;
+        justify-content: space-between;
+        margin: 20px;
+        margin-top: 20px;
+        flex-wrap: wrap;
+      }
+
+      .texto {
+        margin-top: 100px;
+        width: 40%;
+      }
+
+      .imagen {
+        width: 50%;
+        text-align: center;
+        margin-top: 60px;
+      }
+
+      img {
+        width: 100%;
+        height: auto;
+      }
+
+      .grafico:nth-child(odd) .texto {
+        order: 1;
+      }
+
+      .grafico:nth-child(odd) .imagen {
+        order: 2;
+      }
+
+      .grafico:nth-child(even) .texto {
+        order: 2;
+      }
+
+      .grafico:nth-child(even) .imagen {
+        order: 1;
+      }
+
+      .titulo{
+        font-size: 30;
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <header class="appBar">
+      <div>Cáncer de Mama</div>
+    </header>
+
+    <div class="saludo">
+      <h1>Bienvenido</h1>
+      <span class="intro">
+        Te damos la bienvenida a esta página en la cual se mostrara estadísticas
+        reales basadas en una base de datos obtenida de Kaggle, así como una breve explicación de
+        cada una de estas estadísticas.
+      </span>
+    </div>
+
+    <div class="formulario">
+      <h2>Formulario de Evaluación</h2>
+      <form method="POST">
+        <div class="input-group">
+          <label for="imc">Índice de Masa Corporal (IMC):</label>
+          <input type="number" step="0.1" name="imc" required />
+        </div>
+        <div class="input-group">
+          <label for="glucosa">Nivel de Glucosa (mg/dL):</label>
+          <input type="number" name="glucosa" required />
+        </div>
+        <div class="input-group">
+          <label for="insulina">Nivel de Insulina (μU/mL):</label>
+          <input type="number" name="insulina" required />
+        </div>
+        <div class="input-group">
+          <button type="submit">Evaluar</button>
+        </div>
+      </form>
+    </div>
+
+    {% if resultado %}
+      <div class="resultado">
+        <h2>Resultado</h2>
+        <p>{{ resultado }}</p>
+      </div>
+    {% endif %}
+
+    {% for columna in columnas %}
+      <div class="grafico">
+        <div class="texto">
+          <h2 class="titulo">{{ columna }}</h2>
+          <p class="des">{{ descripciones[columna] }}</p>
+        </div>
+        <div class="imagen">
+          <img
+            src="{{ url_for('obtener_imagen', filename=columna.replace(' ', '_') + '.png') }}"
+            alt="Gráfico de {{ columna }}"
+          />
+        </div>
+      </div>
+    {% endfor %}
+  </body>
+</html>
