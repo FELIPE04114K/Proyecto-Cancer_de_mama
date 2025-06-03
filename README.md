@@ -5,7 +5,7 @@ Este proyecto realiza un análisis exploratorio y visual de datos sobre cáncer 
 
 ## Tecnologías y herramientas
 
-- Python 3.13.3
+- Python (3.13.3)
 - Pandas
 - Matplotlib
 - Flask
